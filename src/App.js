@@ -11,7 +11,7 @@ function App() {
     const loadPosts = async () => {
       setLoading(true);
       const response = await axios.get(
-        "https://jsonplaceholder.typicode.com/posts"
+        "https://fakestoreapi.com/products"
       );
       setPosts(response.data);
       setLoading(false);
@@ -29,7 +29,7 @@ function App() {
         placeholder="Search..."
         onChange={(e) => setSearchTitle(e.target.value)}
       />
-      {loading ? (
+      <div className = "products-container">{loading ? (
         <h4>Loading ...</h4>
       ) : (
         posts
@@ -42,8 +42,19 @@ function App() {
               return value;
             }
           })
-          .map((item) => <h5 key={item.id}>{item.title}</h5>)
-      )}
+          .map((item) => {
+            return (
+              <div key={item.id} className="product-item">
+                <div className="card"><img src={item.image} alt="#" /></div>
+                <div className="card-description">
+                  <h4 className="card-category">{item.category}</h4>
+                  <h2 className="card-title">{item.title}</h2>
+                  <h3 className="card-price">{`$${item.price}`}</h3>
+                </div>
+                </div>
+            );
+          })
+      )}</div>
     </div>
   );
 }
